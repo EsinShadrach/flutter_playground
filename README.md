@@ -20,6 +20,10 @@ The `Page Animation` example demonstrates a page transition animation using the 
 
 Watch the demo video:
 
+https://github.com/EsinShadrach/flutter_playground/assets/102266348/88366ddd-2787-4b0c-a41f-c8d6999deb17
+
+
+
 <video width="320" height="240" controls>
   <source src="demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
