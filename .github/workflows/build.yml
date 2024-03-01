@@ -25,12 +25,21 @@ jobs:
               with:
                   channel: "stable"
 
+            - name: Print Flutter and Dart versions
+              run: |
+                  flutter --version
+                  dart --version
+
             - name: Run Pub Get
               run: flutter pub get
             # Removed test
             # - run: flutter test
             - name: Run Flutter build
               run: flutter build apk --release --split-per-abi
+            - name: Debug Output
+              run: |
+                  echo "GitHub Token: ${{ secrets.GITHUB_TOKEN }}"
+                  ls -l build/app/outputs/flutter-apk
 
             - name: Release
               uses: ncipollo/release-action@v1
