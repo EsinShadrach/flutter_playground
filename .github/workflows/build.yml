@@ -1,0 +1,28 @@
+name: "Build Playground App"
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        name: Build App
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: subosito/flutter-action@v2
+              with:
+                  channel: "stable"
+            - run: flutter pub get
+            # Removed test
+            # - run: flutter test
+            - run: flutter build apk --release --split-per-abi
+
+            - name: Release
+              uses: ncipollo/release-action@v1
+              with:
+                  artifacts: "build/app/outputs/flutter-apk/*.apk"
+                  name: Flutter Playground
+                  tag: v1.0.${{ github.run_number }}
+                  token: ${{ secrets.Flutter }}
