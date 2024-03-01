@@ -10,14 +10,27 @@ jobs:
         name: Build App
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
-            - uses: subosito/flutter-action@v2
+            - name: Cache Flutter dependencies
+              uses: actions/cache@v2
+              with:
+                  path: |
+                      ~/.pub-cache
+                  key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+
+            - name: Check Out Code and
+              uses: actions/checkout@v4
+
+            - name: Get flutter action
+              uses: subosito/flutter-action@v2
               with:
                   channel: "stable"
-            - run: flutter pub get
+
+            - name: Run Pub Get
+              run: flutter pub get
             # Removed test
             # - run: flutter test
-            - run: flutter build apk --release --split-per-abi
+            - name: Run Flutter build
+              run: flutter build apk --release --split-per-abi
 
             - name: Release
               uses: ncipollo/release-action@v1
@@ -25,4 +38,4 @@ jobs:
                   artifacts: "build/app/outputs/flutter-apk/*.apk"
                   name: Flutter Playground
                   tag: v1.0.${{ github.run_number }}
-                  token: ${{ secrets.Flutter }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
