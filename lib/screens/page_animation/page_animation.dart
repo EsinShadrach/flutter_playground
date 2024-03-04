@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+typedef AnimationType = Offset;
+
 class PageAnimation extends StatelessWidget {
   const PageAnimation({super.key});
 
@@ -19,18 +21,19 @@ class PageAnimation extends StatelessWidget {
                 pageBuilder: (___, __, _) => const SecondScreen(),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
-                  const begin = Offset(0.0, 1.0);
-                  const end = Offset.zero;
-                  const curve = Curves.easeInOut;
+                  AnimationType begin = const Offset(0.0, 1.0);
+                  AnimationType end = Offset.zero;
 
-                  var tween = Tween(begin: begin, end: end).chain(
-                    CurveTween(curve: curve),
+                  Animatable<AnimationType> tween =
+                      Tween<AnimationType>(begin: begin, end: end).chain(
+                    CurveTween(curve: Curves.easeInOut),
                   );
 
-                  var offsetAnimation = animation.drive(tween);
+                  Animation<AnimationType> pageAnimation =
+                      animation.drive(tween);
 
                   return SlideTransition(
-                    position: offsetAnimation,
+                    position: pageAnimation,
                     child: child,
                   );
                 },
