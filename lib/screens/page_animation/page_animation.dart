@@ -10,7 +10,7 @@ class PageAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Screen'),
+        title: const Text('First Screen'),
       ),
       body: Center(
         child: ElevatedButton(
