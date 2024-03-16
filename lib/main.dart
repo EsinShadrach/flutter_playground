@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
           children: [
             CupertinoListSection.insetGrouped(
               backgroundColor:
-                  context.colorScheme.inverseSurface.withOpacity(0.1),
+                  context.colorScheme.inverseSurface.withOpacity(0.02),
               header: SizedBox(
                 width: double.infinity,
                 child: Text(
