@@ -9,8 +9,8 @@ class PageAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CupertinoNavigationBar(
-        middle: Text('First Screen'),
+      appBar: AppBar(
+        title: Text('First Screen'),
       ),
       body: Center(
         child: ElevatedButton(

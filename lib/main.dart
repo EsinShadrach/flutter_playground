@@ -1,9 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/extensions.dart';
+import 'package:flutter_playground/providers/color_provider.dart';
 import 'package:flutter_playground/routes.dart';
+import 'package:flutter_playground/screens/change_color_scheme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ColorProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,22 +24,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      routes: routes,
-      debugShowCheckedModeBanner: false,
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(
-          builder: (context) => const Scaffold(
-            body: Center(
-              child: Text('Page not found'),
+    return Consumer<ColorProvider>(
+      builder: (context, value, child) => MaterialApp(
+        title: 'Flutter Demo',
+        routes: routes(),
+        debugShowCheckedModeBanner: false,
+        onUnknownRoute: (settings) {
+          return MaterialPageRoute(
+            builder: (context) => const Scaffold(
+              body: Center(
+                child: Text('Page not found'),
+              ),
             ),
+          );
+        },
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: value.appTheme,
+            brightness: value.isLightMode ? Brightness.light : Brightness.dark,
           ),
-        );
-      },
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+          useMaterial3: true,
+        ),
       ),
     );
   }
@@ -61,27 +79,49 @@ class HomePage extends StatelessWidget {
     var currentRoute = ModalRoute.of(context)!.settings.name ?? '';
 
     return Scaffold(
-      appBar: CupertinoNavigationBar(
-        middle: Text(convertMapToString(currentRoute)),
+      appBar: AppBar(
+        title: Text(convertMapToString(currentRoute)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const UpdateColorSchemeScreen(),
+                  fullscreenDialog: true,
+                  barrierDismissible: true,
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.color_lens,
+              color: context.colorScheme.primary,
+            ),
+          )
+        ],
       ),
       body: SafeArea(
         child: ListView(
           children: [
             CupertinoListSection.insetGrouped(
-              header: const SizedBox(
+              backgroundColor:
+                  context.colorScheme.inverseSurface.withOpacity(0.1),
+              header: SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Widgets I think are cool",
                   textAlign: TextAlign.center,
+                  style: context.textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               margin: const EdgeInsets.symmetric(
                 vertical: 10,
                 horizontal: 10,
               ),
-              children: List.generate(routes.length, (index) {
-                String route = routes.keys.toList()[index];
-                String pushRoute = routes.keys.toList()[index];
+              children: List.generate(routes().length, (index) {
+                String route = routes().keys.toList()[index];
+                String pushRoute = routes().keys.toList()[index];
                 bool isPresentActiveRoute = currentRoute == pushRoute;
 
                 return CupertinoListTile.notched(
@@ -97,7 +137,10 @@ class HomePage extends StatelessWidget {
                   title: Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      Text(convertMapToString(route)),
+                      Text(
+                        convertMapToString(route),
+                        style: context.textTheme.bodyLarge,
+                      ),
                       if (!isPresentActiveRoute) ...[
                         const GlowingBadge(),
                       ],
