@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_playground/extensions.dart';
-import 'package:flutter_playground/providers/color_provider.dart';
-import 'package:provider/provider.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
+import "package:flutter_playground/extensions.dart";
+import "package:flutter_playground/providers/color_provider.dart";
+import "package:provider/provider.dart";
 
 class UpdateColorSchemeScreen extends StatelessWidget {
   const UpdateColorSchemeScreen({super.key});
@@ -17,7 +17,7 @@ class UpdateColorSchemeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update ColorScheme'),
+        title: const Text("Update ColorScheme"),
       ),
       body: SafeArea(
         child: Padding(

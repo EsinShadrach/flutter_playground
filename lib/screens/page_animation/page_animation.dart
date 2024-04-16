@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
 
 typedef AnimationType = Offset;
 
@@ -10,7 +10,7 @@ class PageAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('First Screen'),
+        title: const Text("First Screen"),
       ),
       body: Center(
         child: ElevatedButton(
@@ -40,7 +40,7 @@ class PageAnimation extends StatelessWidget {
               ),
             );
           },
-          child: const Text('Go to Second Screen'),
+          child: const Text("Go to Second Screen"),
         ),
       ),
     );
@@ -54,11 +54,11 @@ class SecondScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: CupertinoNavigationBar(
-        middle: Text('Second Screen'),
+        middle: Text("Second Screen"),
         transitionBetweenRoutes: false,
       ),
       body: Center(
-        child: Text('This is the Second Screen'),
+        child: Text("This is the Second Screen"),
       ),
     );
   }

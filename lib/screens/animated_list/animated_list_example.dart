@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_playground/extensions.dart';
+import "package:flutter/material.dart";
+import "package:flutter_playground/extensions.dart";
 
 class AnimatedListScreen extends StatefulWidget {
   const AnimatedListScreen({super.key});
@@ -32,7 +32,7 @@ class _AnimatedListScreenState extends State<AnimatedListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Title'),
+        title: const Text("Title"),
       ),
       body: SafeArea(
         child: Padding(

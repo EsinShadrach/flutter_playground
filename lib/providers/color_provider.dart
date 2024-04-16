@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class ColorProvider extends ChangeNotifier {
   Color _appTheme = Colors.deepPurple;

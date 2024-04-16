@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_playground/extensions.dart';
-import 'package:flutter_playground/providers/color_provider.dart';
-import 'package:flutter_playground/routes.dart';
-import 'package:flutter_playground/screens/change_color_scheme.dart';
-import 'package:provider/provider.dart';
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
+import "package:flutter_playground/extensions.dart";
+import "package:flutter_playground/providers/color_provider.dart";
+import "package:flutter_playground/routes.dart";
+import "package:flutter_playground/screens/change_color_scheme.dart";
+import "package:provider/provider.dart";
 
 void main() {
   runApp(
@@ -26,14 +26,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ColorProvider>(
       builder: (context, value, child) => MaterialApp(
-        title: 'Flutter Demo',
+        title: "Flutter Demo",
         routes: routes(),
         debugShowCheckedModeBanner: false,
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
             builder: (context) => const Scaffold(
               body: Center(
-                child: Text('Page not found'),
+                child: Text("Page not found"),
               ),
             ),
           );
@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
       return toTitleCase;
     }
 
-    var currentRoute = ModalRoute.of(context)!.settings.name ?? '';
+    var currentRoute = ModalRoute.of(context)!.settings.name ?? "";
 
     return Scaffold(
       appBar: AppBar(
@@ -155,6 +155,7 @@ class HomePage extends StatelessWidget {
                 );
               }),
             ),
+            const BouncingBtn(),
           ],
         ),
       ),
@@ -176,6 +177,65 @@ class GlowingBadge extends StatelessWidget {
         decoration: const ShapeDecoration(
           shape: CircleBorder(),
           color: Colors.greenAccent,
+        ),
+      ),
+    );
+  }
+}
+
+class BouncingBtn extends StatefulWidget {
+  const BouncingBtn({super.key});
+
+  @override
+  State<BouncingBtn> createState() => _BouncingBtnState();
+}
+
+class _BouncingBtnState extends State<BouncingBtn>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      lowerBound: 0.3,
+      duration: Durations.short4,
+    );
+
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.95,
+    ).animate(_controller);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTapDown: (details) {
+          _controller.forward();
+        },
+        onTapUp: (details) {
+          _controller.reverse();
+        },
+        onTapCancel: () {
+          _controller.reverse();
+        },
+        child: ScaleTransition(
+          scale: _scaleAnimation,
+          child: FilledButton(
+            onPressed: () {},
+            child: const Text("Hello"),
+          ),
         ),
       ),
     );
