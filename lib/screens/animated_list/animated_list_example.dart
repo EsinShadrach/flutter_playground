@@ -32,7 +32,7 @@ class _AnimatedListScreenState extends State<AnimatedListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Title"),
+        title: const Text("Animated List"),
       ),
       body: SafeArea(
         child: Padding(
@@ -125,6 +125,14 @@ class _AnimatedListScreenState extends State<AnimatedListScreen> {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _listKey.currentState!.insertItem(
+            0,
+          );
+        },
+        child: const Icon(Icons.add_rounded),
       ),
     );
   }
