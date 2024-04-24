@@ -23,7 +23,7 @@ The `Page Animation` example demonstrates a page transition animation using the 
 
 Watch the demo video:
 
-https://github.com/EsinShadrach/flutter_playground/assets/102266348/88366ddd-2787-4b0c-a41f-c8d6999deb17
+https://github.com/EsinShadrach/flutter_playground/assets/102266348/cb051a81-a836-4373-99e0-2dc995d9a592
 
 ## Animated List
 
