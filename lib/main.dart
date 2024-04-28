@@ -5,7 +5,6 @@ import "package:flutter_playground/providers/color_provider.dart";
 import "package:flutter_playground/routes.dart";
 import "package:flutter_playground/screens/change_color_scheme.dart";
 import "package:provider/provider.dart";
-import 'package:lucide_icons/lucide_icons.dart';
 
 void main() {
   runApp(
