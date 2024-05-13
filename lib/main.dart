@@ -29,13 +29,13 @@ class MyApp extends StatelessWidget {
         title: "Flutter Demo",
         routes: routes(),
         debugShowCheckedModeBanner: false,
-        builder: (context, child) {
-          return Scaffold(
-            body: SafeArea(
-              child: child!,
-            ),
-          );
-        },
+        // builder: (context, child) {
+        //   return Scaffold(
+        //     body: SafeArea(
+        //       child: child!,
+        //     ),
+        //   );
+        // },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
             builder: (context) => const Scaffold(
