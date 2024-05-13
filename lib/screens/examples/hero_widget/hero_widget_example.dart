@@ -11,7 +11,8 @@ class HeroWidgetScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Hero Screen - 1"),
       ),
-      body: Center(
+      body: Align(
+        alignment: Alignment.bottomRight,
         child: Container(
           clipBehavior: Clip.hardEdge,
           margin: const EdgeInsets.all(10),
@@ -30,6 +31,7 @@ class HeroWidgetScreen extends StatelessWidget {
             },
             child: Hero(
               tag: "peick",
+              transitionOnUserGestures: true,
               flightShuttleBuilder: (flightContext, animation, flightDirection,
                   fromHeroContext, toHeroContext) {
                 final customAnimation = Tween<double>(
@@ -45,8 +47,17 @@ class HeroWidgetScreen extends StatelessWidget {
                         ..setEntry(3, 2, 0.003)
                         ..rotateX(customAnimation.value * pi),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        "assets/peick.webp",
+                      child: Container(
+                        clipBehavior: Clip.hardEdge,
+                        margin: const EdgeInsets.all(10),
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Image.asset(
+                          "assets/peick.webp",
+                        ),
                       ),
                     );
                   },
@@ -80,15 +91,11 @@ class SecondScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: InkWell(
-          onTap: () {
-            //
-          },
-          child: Hero(
-            tag: "peick",
-            child: Image.asset(
-              "assets/peick.webp",
-            ),
+        child: Hero(
+          tag: "peick",
+          transitionOnUserGestures: true,
+          child: Image.asset(
+            "assets/peick.webp",
           ),
         ),
       ),
