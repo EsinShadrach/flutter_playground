@@ -59,6 +59,7 @@ class _CustomSnackbarState extends State<CustomSnackbar>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<Offset> _animation;
+  double _dragOffsetY = 0;
 
   @override
   void initState() {
@@ -81,10 +82,33 @@ class _CustomSnackbarState extends State<CustomSnackbar>
     super.initState();
   }
 
+  void _onVerticalDragUpdate(DragUpdateDetails details) {
+    setState(() {
+      _dragOffsetY += details.primaryDelta!;
+      // Ensure the offset is between -1 (fully hidden) and 0 (fully visible)
+      _dragOffsetY = _dragOffsetY.clamp(-200.0, 0.0);
+    });
+  }
+
+  void _onVerticalDragEnd(DragEndDetails details) {
+    if (_dragOffsetY < -100) {
+      // If dragged more than halfway, close the snackbar
+      _controller.reverse().then((_) {
+        widget.tapFn();
+      });
+    } else {
+      // Otherwise, animate back to the fully visible state
+      _controller.forward();
+      setState(() {
+        _dragOffsetY = 0;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 0,
+      top: _dragOffsetY,
       left: 0,
       right: 0,
       child: Material(
@@ -93,43 +117,47 @@ class _CustomSnackbarState extends State<CustomSnackbar>
           constraints: const BoxConstraints(
             maxHeight: 200,
           ),
-          child: SlideTransition(
-            position: _animation,
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.colorScheme.surfaceContainerHighest,
-              ),
-              padding: const EdgeInsets.all(10),
-              child: SafeArea(
-                bottom: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Hey Nigger",
-                      style: context.textTheme.titleMedium,
-                    ),
-                    const Spacer(),
-                    Text(
-                      "lorem ipsum is a simple dummy text of the printing and type setting industry",
-                      style: context.textTheme.bodyMedium,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        onPressed: () {
-                          _controller.reverse().then((_) {
-                            widget.tapFn();
-                          });
-                        },
-                        child: const Text("Close"),
+          child: GestureDetector(
+            onVerticalDragUpdate: _onVerticalDragUpdate,
+            onVerticalDragEnd: _onVerticalDragEnd,
+            child: SlideTransition(
+              position: _animation,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.colorScheme.surfaceContainerHighest,
+                ),
+                padding: const EdgeInsets.all(10),
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Hey Nigger",
+                        style: context.textTheme.titleMedium,
                       ),
-                    )
-                  ],
+                      const Spacer(),
+                      Text(
+                        "lorem ipsum is a simple dummy text of the printing and type setting industry",
+                        style: context.textTheme.bodyMedium,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          onPressed: () {
+                            _controller.reverse().then((_) {
+                              widget.tapFn();
+                            });
+                          },
+                          child: const Text("Close"),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
