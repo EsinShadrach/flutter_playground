@@ -56,7 +56,7 @@ class _AnimatedListScreenState extends State<AnimatedListScreen> {
                     Expanded(
                       child: FilledButton(
                         style: const ButtonStyle(
-                          shape: MaterialStatePropertyAll(
+                          shape: WidgetStatePropertyAll(
                             ContinuousRectangleBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),

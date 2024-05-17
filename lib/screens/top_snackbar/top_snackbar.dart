@@ -97,7 +97,7 @@ class _CustomSnackbarState extends State<CustomSnackbar>
             position: _animation,
             child: Container(
               decoration: BoxDecoration(
-                color: context.colorScheme.surfaceVariant,
+                color: context.colorScheme.surfaceContainerHighest,
               ),
               padding: const EdgeInsets.all(10),
               child: SafeArea(

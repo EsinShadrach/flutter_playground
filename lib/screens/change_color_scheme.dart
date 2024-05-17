@@ -37,12 +37,12 @@ class UpdateColorSchemeScreen extends StatelessWidget {
                           inactiveTrackColor:
                               context.colorScheme.primary.withOpacity(0.2),
                           activeTrackColor: context.colorScheme.primary,
-                          thumbIcon: MaterialStatePropertyAll(
+                          thumbIcon: WidgetStatePropertyAll(
                             value.isLightMode
                                 ? const Icon(Icons.sunny)
                                 : Icon(
                                     Icons.dark_mode_rounded,
-                                    color: context.colorScheme.onBackground,
+                                    color: context.colorScheme.onSurface,
                                   ),
                           ),
                           onChanged: (isOn) => value.toggleBrightness(isOn),
