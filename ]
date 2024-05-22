@@ -1,0 +1,51 @@
+import "package:flutter/material.dart";
+
+class StackedCards extends StatelessWidget {
+  const StackedCards({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Stacked Cards Example"),
+      ),
+      body: SafeArea(
+        child: const Stack(
+          children: [
+            NoteCard(
+              body: "Hello",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class NoteCard extends StatelessWidget {
+  const NoteCard({
+    super.key,
+    required this.body,
+  });
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        color: Colors.red,
+        width: double.infinity,
+        constraints: const BoxConstraints(
+          maxWidth: 400,
+        ),
+        child: const Card(
+          child: Column(
+            children: [
+              Text("Hello"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

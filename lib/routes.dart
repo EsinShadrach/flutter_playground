@@ -5,6 +5,7 @@ import "package:flutter_playground/screens/examples/hero_widget/hero_widget_exam
 import "package:flutter_playground/screens/examples/overlay_example/overlay_example_screen.dart";
 import "package:flutter_playground/screens/examples/scale_down_btn/scale_down_btn_example.dart";
 import "package:flutter_playground/screens/page_animation/page_animation.dart";
+import "package:flutter_playground/screens/stacks/stacked_cards.dart";
 import "package:flutter_playground/screens/top_snackbar/top_snackbar.dart";
 
 mixin AppRoutes {
@@ -15,6 +16,7 @@ mixin AppRoutes {
   static const String overlayExample = "/overlay-example";
   static const String heroWidget = "/hero-widget";
   static const String topSnackbar = "/top-snackbar";
+  static const String stack = "/stack";
 }
 
 Map<String, WidgetBuilder> routes() => {
@@ -25,4 +27,5 @@ Map<String, WidgetBuilder> routes() => {
       AppRoutes.overlayExample: (context) => const OverlayScreenExample(),
       AppRoutes.heroWidget: (context) => const HeroWidgetScreen(),
       AppRoutes.topSnackbar: (context) => const TopSnackbar(),
+      AppRoutes.stack: (context) => const StackedCards(),
     };
