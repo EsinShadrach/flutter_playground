@@ -13,6 +13,7 @@ class _StackedCardsState extends State<StackedCards> {
   String text =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget orci nec nisl viverra porta. Sed a velit tincidunt, sagittis tortor congue, finibus sem. Nam facilisis laoreet ante. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ac eros sagittis dui consectetur interdum a posuere velit. Maecenas mi felis, molestie eget lorem in, rutrum tempus arcu. Quisque a dui in arcu tristique posuere non sit amet justo. Duis pellentesque hendrerit tempor. Quisque scelerisque sapien eu porta condimentum. Phasellus bibendum malesuada auctor. Vivamus pretium pellentesque enim, non aliquam orci iaculis eu. Praesent feugiat porttitor ultricies. Duis porttitor, dui ac tempus tincidunt, libero massa vulputate massa, sit amet molestie est augue eu enim. Phasellus vel dignissim eros. Fusce accumsan eu magna at faucibus. Duis sit amet dictum ex. Curabitur ultrices iaculis dui non eleifend. Phasellus velit sem, mollis id fringilla ut, ornare at dolor. Fusce ligula neque, mattis id porttitor eget, efficitur a ipsum. In commodo felis vel sollicitudin tempus. Maecenas eget scelerisque nibh. Proin aliquam augue non erat aliquam aliquam. Phasellus gravida consequat convallis. Aenean vitae cursus urna. Maecenas orci erat, condimentum at pretium in, lobortis a sapien. Quisque iaculis lacus consequat nisi pulvinar egestas. Ut at finibus erat, in eleifend mauris. Proin et ornare est, a vulputate sapien. Sed augue ipsum, vestibulum nec vestibulum ut, efficitur at diam. Fusce mi felis, laoreet non sodales eget, pharetra ut dolor. Nunc id pretium orci. Aliquam mattis tempor aliquet. Sed ex ante, lobortis id felis vel, posuere mollis eros. Aliquam vel libero diam. Nunc a purus volutpat, efficitur dui sit amet, rutrum odio. Mauris sollicitudin magna vitae pretium molestie. Praesent sit amet odio nisl. Sed eget convallis ex. Pellentesque ornare tortor quis luctus hendrerit. Ut viverra condimentum quam ac porta. Phasellus tempor, eros vel consequat aliquam, augue ante accumsan diam, non porta erat erat sit amet massa. Vivamus mattis magna eu ultricies elementum.";
   int length = 0;
+  double angle = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,18 @@ class _StackedCardsState extends State<StackedCards> {
               return Positioned.fill(
                 left: index * 10,
                 bottom: index * 10,
-                child: NoteCard(
-                  body: text,
+                child: Transform.rotate(
+                  angle: angle,
+                  child: GestureDetector(
+                    onHorizontalDragStart: (details) {},
+                    onHorizontalDragUpdate: (details) {},
+                    child: NoteCard(
+                      body: text,
+                      onDelete: () {
+                        //
+                      },
+                    ),
+                  ),
                 ),
               );
             },
@@ -44,8 +55,10 @@ class NoteCard extends StatelessWidget {
   const NoteCard({
     super.key,
     required this.body,
+    required this.onDelete,
   });
   final String body;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
