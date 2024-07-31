@@ -109,6 +109,7 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
+            Text(routes().keys.toString()),
             CupertinoListSection.insetGrouped(
               backgroundColor:
                   context.colorScheme.inverseSurface.withOpacity(0.02),
